@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import Interfaces.iActorBehaviour;
 import Interfaces.iMarketBehaviour;
 import Interfaces.iQueueBehaviour;
+import Interfaces.iReturnOrder;
 
-public class Market implements iMarketBehaviour,iQueueBehaviour {
+public class Market implements iMarketBehaviour,iQueueBehaviour, iReturnOrder {
 
     private List<iActorBehaviour> queue;
 
@@ -88,6 +89,25 @@ public class Market implements iMarketBehaviour,iQueueBehaviour {
         
     }
 
+    @Override
+    public void returnPerson(){
+        for(iActorBehaviour actor : queue){
+            if(!actor.getActor().getIsReturn()){
+                actor.getActor().setIsReturn(true);
+                System.out.println(actor.getActor().getName() + "возврат оформлен");
+                isReturnOrder(actor);
+            }
+        }
 
-    
+    }
+
+    @Override
+    public void isReturnOrder(iActorBehaviour actor){
+        if(actor.getActor().getIsReturn()){
+            System.out.println(actor.getActor().getName() + "товар возвращен");
+        }else{
+            System.out.println(actor.getActor().getName() + "отказ в возврате");
+        }
+    }
+  
 }
