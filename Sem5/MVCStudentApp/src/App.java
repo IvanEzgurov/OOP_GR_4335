@@ -1,41 +1,41 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import javax.jws.WebParam.Mode;
+import Controller.*;
 
-import Controller.Controller;
-import Controller.iGetModel;
-import Controller.iGetView;
-import Model.FileModel;
-import Model.Model;
-import Model.Student;
-import View.View;
+import Model.*;
+
+import View.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
        // System.out.println("Hello, World!");
        List<Student> students = new ArrayList<Student>();
-       Student s1 = new Student("Сергей", "Иванов", 21, 101);
-       Student s2 = new Student("Андрей", "Сидоров", 22, 111);
-       Student s3 = new Student("Иван", "Петров", 22, 121);
-       Student s4 = new Student("Игорь", "Иванов", 23, 301);
-       Student s5 = new Student("Даша", "Цветкова", 25, 171);
-       Student s6 = new Student("Лена", "Незабудкина", 23, 104);
-       students.add(s1);
-       students.add(s2);
-       students.add(s3);
-       students.add(s4);
-       students.add(s5);
-       students.add(s6);
+       students.add(new Student("Сергей", "Иванов", 21, 101));
+       students.add(new Student("Андрей", "Сидоров", 22, 111));
+       students.add(new Student("Иван", "Петров", 22, 121));
+       students.add(new Student("Игорь", "Иванов", 23, 301));
+       students.add(new Student("Даша", "Цветкова", 25, 171));
+       students.add(new Student("Лена", "Незабудкина", 23, 104));
+       
+       HashMap<Long, Student> hachListStudent = new HashMap<Long, Student>();
+       hachListStudent.put(0L, new Student("Сергей", "Климов", 24, 101));
+       hachListStudent.put(1L,new Student("Дмитрий", "Голиков", 35, 104));
+       hachListStudent.put(2L, new Student("Анна", "Марченко", 21, 105));
+       hachListStudent.put(3L, new Student("Василий", "Смирнов", 32, 107));
+       hachListStudent.put(4L, new Student("Мария", "Кравцова", 24, 109));
+       hachListStudent.put(5L, new Student("Петр", "Иванов", 23, 215));
 
-       FileModel fModel = new FileModel("StudentsDB.txt");
+    
+       iGetModel fModel = new FileModel("StudentsDB.txt");
        //fModel.saveAllStudentToFile(students);
 
        iGetModel model = new Model(students);
-       iGetModel newFModel = fModel;
+       iGetModel hachModel = new hachModel(hachListStudent);
        iGetView view = new View();
 
-       Controller controller = new Controller(view, newFModel);
+       Controller controller = new Controller(view, hachModel);
        //controller.update();
        controller.run();
 

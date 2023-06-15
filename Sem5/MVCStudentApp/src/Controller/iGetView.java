@@ -6,5 +6,15 @@ import Model.Student;
 
 public interface iGetView {
     void printAllStudents(List<Student> students);
-    String prompt(String message);
+
+    void getMessNumberForDell();
+
+    void getMessErrDell();
+
+    String getMessInputComand();
+
+    void getMessEndProgram();
+
+    void getMesNotMet();
+
 }

@@ -2,10 +2,10 @@ package Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-import Model.Model;
-import Model.Student;
-import View.View;
+import Model.*;
+
 
 public class Controller {
     private iGetView view;
@@ -48,23 +48,43 @@ public class Controller {
     public void run()
     {
         Commands com = Commands.NONE;
+        getAllStudents();
         boolean getNewIteration = true;
         while(getNewIteration)
         {
-            String command = view.prompt("Введите команду:");
+            String command = view.getMessInputComand();
             com = Commands.valueOf(command.toUpperCase());
             switch(com)
             {
-                case EXIT:
+                case EXIT: {
                     getNewIteration=false;
-                    System.out.println("Выход из программы!");
-                    break;
-                case LIST:
+                    view.getMessEndProgram();;
+                }
+                case LIST: {
                     getAllStudents();
                     view.printAllStudents(students);
-                    break;
+                }
+                case DELETE: {
+                    view.getMessNumberForDell();
+                    model.delletStudent(getNumber());
+                    getAllStudents();;
+                    view.printAllStudents(students);
+                }
+                
             }
 
+        }
+
+    }
+    private int getNumber(){
+        Scanner iSc = new Scanner(System.in);
+        int number = Integer.parseInt(iSc.nextLine());
+        boolean flagDel = number < students.size() && number > -1;
+        if(flagDel){
+            return number;
+        }else{
+            view.getMessErrDell();
+            return -1;
         }
     }
 

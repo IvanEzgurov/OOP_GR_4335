@@ -6,4 +6,5 @@ import Model.Student;
 
 public interface iGetModel {
     public List<Student> getAllStudents();
+    public void delletStudent(int number);
 }

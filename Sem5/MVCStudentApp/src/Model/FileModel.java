@@ -11,6 +11,7 @@ import Controller.iGetModel;
 
 public class FileModel implements iGetModel {
     private String fileName;
+    List<Student> students = new ArrayList<Student>();
 
     public FileModel(String fileName) {
         this.fileName = fileName;
@@ -25,9 +26,8 @@ public class FileModel implements iGetModel {
 
     @Override
     public List<Student> getAllStudents() {
-        List<Student> students  = new ArrayList<Student>();
-        try
-        {
+        
+        try{
             File file = new File(fileName);
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
@@ -47,6 +47,13 @@ public class FileModel implements iGetModel {
         }
 
         return students;
+    }
+
+    @Override
+    public void delletStudent(int number){
+        if (number > -1){
+            students.remove(number);
+        }
     }
 
     public void saveAllStudentToFile(List<Student> students)
